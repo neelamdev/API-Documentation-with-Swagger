@@ -2,7 +2,6 @@ package com.techreturners.bookmanager.service;
 
 import com.techreturners.bookmanager.model.Book;
 import com.techreturners.bookmanager.model.Genre;
-
 import com.techreturners.bookmanager.repository.BookManagerRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -79,6 +78,20 @@ public class BookManagerServiceTests {
         bookManagerServiceImpl.updateBookById(bookId, book);
 
         verify(mockBookManagerRepository, times(1)).save(book);
+    }
+
+    //User Story 5-Delete Book by Id
+    @Test
+    public void testDeleteBookById() {
+
+        Long bookId = 4L;
+        var book = new Book(4L, "Book Four", "This is the description for Book Four", "Person Four", Genre.Fantasy);
+
+        when(mockBookManagerRepository.findById(bookId)).thenReturn(Optional.of(book));
+       // when(mockBookManagerRepository.save(book)).thenReturn(book);
+        assertThat(bookManagerServiceImpl.deleteBookById(bookId)).isNullOrEmpty();
+        ;
+
     }
 
 }

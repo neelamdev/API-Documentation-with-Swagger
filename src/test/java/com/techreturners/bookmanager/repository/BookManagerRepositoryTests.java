@@ -6,6 +6,9 @@ import com.techreturners.bookmanager.model.Genre;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,5 +39,16 @@ public class BookManagerRepositoryTests {
         assertThat(bookById).isNotNull();
 
     }
+    @Test
+    public void testDeleteAndFindBookByIdReturnsBook() {
+
+        Book book = new Book(2L, "Book Two", "This is the description for Book Two", "Person Two", Genre.Fantasy);
+       // bookManagerRepository.deleteById(book.getId());
+       bookManagerRepository.delete(book);
+
+       assertThat(book.getId()).isNull();
+
+    }
+
 
 }
